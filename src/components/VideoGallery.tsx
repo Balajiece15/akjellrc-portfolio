@@ -1,6 +1,9 @@
 interface Video {
   id: string
   title: string
+  src?: string  // For local videos
+  channel?: string
+  duration?: string
 }
 
 interface VideoGalleryProps {
@@ -34,26 +37,48 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
         <div key={video.id} className="garage-card">
           <h4 className="text-lg font-semibold text-white mb-4">{video.title}</h4>
           <div className="aspect-video">
-            <iframe
-              width="100%"
-              height="100%"
-              src={`https://www.youtube.com/embed/${video.id}`}
-              title={video.title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="rounded-lg"
-            ></iframe>
+            {video.src ? (
+              // Local video
+              <video
+                width="100%"
+                height="100%"
+                controls
+                muted
+                className="rounded-lg"
+                poster="/images/rc-4718649_1280.jpg"
+              >
+                <source src={video.src} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              // YouTube video (fallback)
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${video.id}`}
+                title={video.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="rounded-lg"
+              ></iframe>
+            )}
           </div>
           <div className="mt-3 text-center">
-            <a
-              href={`https://www.youtube.com/watch?v=${video.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-garage-accent hover:text-garage-secondary text-sm"
-            >
-              Watch on YouTube →
-            </a>
+            {video.src ? (
+              <span className="text-garage-accent font-medium">
+                💾 Local Video • {video.duration || 'HD Quality'}
+              </span>
+            ) : (
+              <a
+                href={`https://www.youtube.com/watch?v=${video.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-garage-accent hover:text-garage-secondary text-sm"
+              >
+                Watch on YouTube →
+              </a>
+            )}
           </div>
         </div>
       ))}

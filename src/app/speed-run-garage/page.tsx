@@ -19,23 +19,26 @@ export default function SpeedRunGarage() {
     'Power': '6S LiPo (22.2V)'
   }
 
-  // Filtered videos - only @akjellrc channel
+  // Local video files
   const videos = [
     {
-      id: 'nBz7k3K_pSE',
+      id: '2419-158691975_small',
       title: 'Arrma Limitless V1 - Speed Run Session',
+      src: '/videos/2419-158691975_small.mp4',
       channel: '@akjellrc',
       duration: '2:45'
     },
     {
-      id: 'vKGInkCBAhc',
-      title: 'RC Speed Testing - High Performance Run',
+      id: '3853818147-preview',
+      title: 'RC Speed Testing - High Performance Run', 
+      src: '/videos/3853818147-preview.mp4',
       channel: '@akjellrc',
       duration: '3:12'
     },
     {
-      id: 'MZAq_5KbGrs',
+      id: '5892345-hd_1280_720_25fps',
       title: 'Limitless V1 - Track Performance',
+      src: '/videos/5892345-hd_1280_720_25fps.mp4',
       channel: '@akjellrc',
       duration: '1:58'
     }
@@ -149,16 +152,19 @@ export default function SpeedRunGarage() {
                 {videos.slice(0, 2).map((video, index) => (
                   <div key={video.id} className="bg-garage-medium rounded-lg p-3">
                     <div className="aspect-video mb-2">
-                      <iframe
+                      <video
                         width="100%"
                         height="100%"
-                        src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&loop=1&playlist=${video.id}`}
-                        title={video.title}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+                        controls
+                        autoPlay
+                        muted
+                        loop
                         className="rounded"
-                      />
+                        poster="/images/rc-4718649_1280.jpg"
+                      >
+                        <source src={video.src} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
                     <p className="text-garage-accent text-sm">{video.title}</p>
                   </div>
