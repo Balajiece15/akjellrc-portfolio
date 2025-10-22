@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface SpeedRun {
   id: number
@@ -12,25 +12,7 @@ interface SpeedRun {
 }
 
 export default function SpeedLog() {
-  const [runs, setRuns] = useState<SpeedRun[]>([
-    {
-      id: 1,
-      date: '2024-10-15',
-      speed: 120,
-      gearing: '23T/64T',
-      battery: '6S 5000mAh',
-      notes: 'Perfect conditions, new aerodynamics package'
-    },
-    {
-      id: 2,
-      date: '2024-10-01',
-      speed: 115,
-      gearing: '22T/64T',
-      battery: '6S 5000mAh',
-      notes: 'Slight headwind, good stability'
-    }
-  ])
-
+  const [runs, setRuns] = useState<SpeedRun[]>([])
   const [newRun, setNewRun] = useState({
     date: '',
     speed: '',
@@ -38,8 +20,44 @@ export default function SpeedLog() {
     battery: '',
     notes: ''
   })
-
   const [showForm, setShowForm] = useState(false)
+
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const savedRuns = localStorage.getItem('speedRuns')
+    if (savedRuns) {
+      setRuns(JSON.parse(savedRuns))
+    } else {
+      // Default data if no saved data exists
+      const defaultRuns = [
+        {
+          id: 1,
+          date: '2024-10-15',
+          speed: 120,
+          gearing: '23T/64T',
+          battery: '6S 5000mAh',
+          notes: 'Perfect conditions, new aerodynamics package'
+        },
+        {
+          id: 2,
+          date: '2024-10-01',
+          speed: 115,
+          gearing: '22T/64T',
+          battery: '6S 5000mAh',
+          notes: 'Slight headwind, good stability'
+        }
+      ]
+      setRuns(defaultRuns)
+      localStorage.setItem('speedRuns', JSON.stringify(defaultRuns))
+    }
+  }, [])
+
+  // Save to localStorage whenever runs change
+  useEffect(() => {
+    if (runs.length > 0) {
+      localStorage.setItem('speedRuns', JSON.stringify(runs))
+    }
+  }, [runs])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -52,7 +70,8 @@ export default function SpeedLog() {
         battery: newRun.battery,
         notes: newRun.notes
       }
-      setRuns([run, ...runs])
+      const updatedRuns = [run, ...runs]
+      setRuns(updatedRuns)
       setNewRun({ date: '', speed: '', gearing: '', battery: '', notes: '' })
       setShowForm(false)
     }

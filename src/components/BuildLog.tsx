@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface BuildEntry {
   id: number
@@ -11,31 +11,49 @@ interface BuildEntry {
 }
 
 export default function BuildLog() {
-  const [entries, setEntries] = useState<BuildEntry[]>([
-    {
-      id: 1,
-      date: '2024-10-10',
-      partBroken: 'Stock Driveshafts',
-      partUpgradedTo: 'Steel CVDs',
-      notes: 'Massive backflip landed hard, snapped both front driveshafts'
-    },
-    {
-      id: 2,
-      date: '2024-09-25',
-      partBroken: 'Rear A-Arms',
-      partUpgradedTo: 'RPM A-Arms',
-      notes: 'Rock impact during trail bashing'
-    }
-  ])
-
+  const [entries, setEntries] = useState<BuildEntry[]>([])
   const [newEntry, setNewEntry] = useState({
     date: '',
     partBroken: '',
     partUpgradedTo: '',
     notes: ''
   })
-
   const [showForm, setShowForm] = useState(false)
+
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const savedEntries = localStorage.getItem('buildEntries')
+    if (savedEntries) {
+      setEntries(JSON.parse(savedEntries))
+    } else {
+      // Default data if no saved data exists
+      const defaultEntries = [
+        {
+          id: 1,
+          date: '2024-10-10',
+          partBroken: 'Stock Driveshafts',
+          partUpgradedTo: 'Steel CVDs',
+          notes: 'Massive backflip landed hard, snapped both front driveshafts'
+        },
+        {
+          id: 2,
+          date: '2024-09-25',
+          partBroken: 'Rear A-Arms',
+          partUpgradedTo: 'RPM A-Arms',
+          notes: 'Rock impact during trail bashing'
+        }
+      ]
+      setEntries(defaultEntries)
+      localStorage.setItem('buildEntries', JSON.stringify(defaultEntries))
+    }
+  }, [])
+
+  // Save to localStorage whenever entries change
+  useEffect(() => {
+    if (entries.length > 0) {
+      localStorage.setItem('buildEntries', JSON.stringify(entries))
+    }
+  }, [entries])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,7 +65,8 @@ export default function BuildLog() {
         partUpgradedTo: newEntry.partUpgradedTo,
         notes: newEntry.notes
       }
-      setEntries([entry, ...entries])
+      const updatedEntries = [entry, ...entries]
+      setEntries(updatedEntries)
       setNewEntry({ date: '', partBroken: '', partUpgradedTo: '', notes: '' })
       setShowForm(false)
     }
