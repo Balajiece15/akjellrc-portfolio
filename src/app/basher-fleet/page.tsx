@@ -13,6 +13,10 @@ export default function BasherFleetPage() {
     {
       id: 'zFeviNCKnbA',
       title: 'Sunday Stroll in the Park With Savage FLUX & X-Maxx'
+    },
+    {
+      id: 'xS7M3XZBwIQ',
+      title: 'X-Maxx vs. GoPro 11'
     }
   ]
 
