@@ -21,7 +21,44 @@ body {
 
 /* Custom garage theme styles */
 .garage-card {
-  @apply bg-garage-dark border border-garage-medium rounded-lg p-6 hover:border-garage-accent transition-all duration-300 hover:shadow-lg hover:shadow-garage-accent/20 backdrop-blur-sm;
+  @apply bg-garage-dark border border-garage-medium rounded-lg p-6 hover:border-garage-accent transition-all duration-300 hover:shadow-lg hover:shadow-garage-accent/20 backdrop-blur-sm relative overflow-hidden;
+}
+
+.garage-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.02) 0%, transparent 50%, rgba(255, 107, 53, 0.02) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.garage-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.garage-card-with-image {
+  @apply bg-garage-dark border border-garage-medium rounded-lg p-6 hover:border-garage-accent transition-all duration-300 hover:shadow-lg hover:shadow-garage-accent/20 backdrop-blur-sm relative overflow-hidden;
+  background-image: url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+
+.garage-card-with-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.9) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .garage-button {

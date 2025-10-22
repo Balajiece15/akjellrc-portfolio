@@ -233,78 +233,92 @@ export default function SpeedLog() {
 
       <div className="space-y-4">
         {sortedRuns.map((run) => (
-          <div key={run.id} className="garage-card">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex-1">
-                <div className="flex items-center space-x-4 mb-2">
-                  <span className="text-white font-semibold">{run.date}</span>
-                  <span className="speed-display text-3xl">{run.speed} MPH</span>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div><span className="text-gray-400">Gearing:</span> <span className="text-white">{run.gearing}</span></div>
-                  <div><span className="text-gray-400">Battery:</span> <span className="text-white">{run.battery}</span></div>
-                </div>
-                {run.notes && (
-                  <div className="mt-2">
-                    <span className="text-gray-400 text-sm">Notes:</span>
-                    <p className="text-gray-300">{run.notes}</p>
+          <div key={run.id} className="garage-card relative overflow-hidden">
+            {/* HD Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
+              style={{
+                backgroundImage: 'url(https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
+              }}
+            />
+            
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-garage-dark/90 via-garage-dark/95 to-garage-dark/85" />
+            
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-4 mb-2">
+                    <span className="text-white font-semibold">{run.date}</span>
+                    <span className="speed-display text-3xl">{run.speed} MPH</span>
                   </div>
-                )}
-              </div>
-              
-              <div className="flex space-x-2 ml-4">
-                <button
-                  onClick={() => handleEdit(run)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                >
-                  ✏️ Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(run.id)}
-                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-                >
-                  🗑️ Delete
-                </button>
-              </div>
-            </div>
-
-            {/* YouTube Videos */}
-            {run.youtubeLinks && run.youtubeLinks.length > 0 && (
-              <div className="mt-4">
-                <h4 className="text-garage-accent font-semibold mb-3">📹 Related Videos</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {run.youtubeLinks.map((link, index) => {
-                    const videoId = extractYouTubeId(link)
-                    if (!videoId) return null
-                    
-                    return (
-                      <div key={index} className="bg-garage-medium rounded-lg p-3">
-                        <div className="aspect-video mb-2">
-                          <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${videoId}`}
-                            title={`Video ${index + 1}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className="rounded"
-                          />
-                        </div>
-                        <a
-                          href={link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-garage-accent hover:text-garage-secondary text-xs"
-                        >
-                          Watch on YouTube →
-                        </a>
-                      </div>
-                    )
-                  })}
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div><span className="text-gray-400">Gearing:</span> <span className="text-white">{run.gearing}</span></div>
+                    <div><span className="text-gray-400">Battery:</span> <span className="text-white">{run.battery}</span></div>
+                  </div>
+                  {run.notes && (
+                    <div className="mt-2">
+                      <span className="text-gray-400 text-sm">Notes:</span>
+                      <p className="text-gray-300">{run.notes}</p>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex space-x-2 ml-4">
+                  <button
+                    onClick={() => handleEdit(run)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                  >
+                    ✏️ Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(run.id)}
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                  >
+                    🗑️ Delete
+                  </button>
                 </div>
               </div>
-            )}
+
+              {/* YouTube Videos */}
+              {run.youtubeLinks && run.youtubeLinks.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="text-garage-accent font-semibold mb-3">📹 Related Videos</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {run.youtubeLinks.map((link, index) => {
+                      const videoId = extractYouTubeId(link)
+                      if (!videoId) return null
+                      
+                      return (
+                        <div key={index} className="bg-garage-medium rounded-lg p-3">
+                          <div className="aspect-video mb-2">
+                            <iframe
+                              width="100%"
+                              height="100%"
+                              src={`https://www.youtube.com/embed/${videoId}`}
+                              title={`Video ${index + 1}`}
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                              className="rounded"
+                            />
+                          </div>
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-garage-accent hover:text-garage-secondary text-xs"
+                          >
+                            Watch on YouTube →
+                          </a>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

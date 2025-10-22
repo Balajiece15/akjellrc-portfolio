@@ -93,6 +93,58 @@ export default function SpeedRunGaragePage() {
       </div>
       
       <div className="max-w-7xl mx-auto space-y-12">
+        
+        {/* HD Car Showcase Section */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-garage-dark to-garage-medium border border-orange-500/30">
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10"></div>
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`
+              }}
+            />
+          </div>
+          
+          <div className="relative z-20 p-12">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-4xl font-bold text-white mb-6 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                  Arrma Limitless V1
+                </h2>
+                <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+                  The ultimate expression of RC speed engineering. Built for one purpose: to shatter barriers and redefine what&apos;s possible on four wheels.
+                </p>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center p-4 bg-garage-medium/50 rounded-lg border border-orange-500/30">
+                    <div className="text-3xl font-bold text-orange-400">120</div>
+                    <div className="text-gray-400 text-sm">MPH Peak</div>
+                  </div>
+                  <div className="text-center p-4 bg-garage-medium/50 rounded-lg border border-red-500/30">
+                    <div className="text-3xl font-bold text-red-400">6S</div>
+                    <div className="text-gray-400 text-sm">Power Plant</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl blur-xl opacity-30"></div>
+                <div 
+                  className="relative h-80 bg-cover bg-center rounded-2xl border-2 border-orange-500/50"
+                  style={{
+                    backgroundImage: `url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80')`
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-2xl"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <div className="text-sm font-bold">Ready for Action</div>
+                    <div className="text-xs text-gray-300">Speed Run Configuration</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Story Section */}

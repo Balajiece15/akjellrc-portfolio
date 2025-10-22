@@ -111,15 +111,26 @@ export default function Home() {
       <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
         <Link href="/speed-run-garage" className="block group">
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-garage-dark to-garage-medium border border-garage-accent/30 hover:border-garage-accent transition-all duration-300 transform hover:scale-105">
+            {/* HD RC Speed Car Background */}
+            <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10"></div>
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80')`
+                }}
+              />
+            </div>
+            
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 opacity-20 z-10">
               <div className="absolute inset-0" style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff6b35' fill-opacity='0.1'%3E%3Cpath d='M20 20c0 5.5-4.5 10-10 10s-10-4.5-10-10 4.5-10 10-10 10 4.5 10 10z'/%3E%3C/g%3E%3C/svg%3E")`,
               }} />
             </div>
             
             {/* Content */}
-            <div className="relative p-8">
+            <div className="relative p-8 z-20">
               <div className="flex items-center space-x-4 mb-4">
                 <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-3xl shadow-lg">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -156,15 +167,26 @@ export default function Home() {
 
         <Link href="/basher-fleet" className="block group">
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-garage-dark to-garage-medium border border-red-500/30 hover:border-red-500 transition-all duration-300 transform hover:scale-105">
+            {/* HD X-Maxx Monster Truck Background */}
+            <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10"></div>
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`
+                }}
+              />
+            </div>
+            
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 opacity-20 z-10">
               <div className="absolute inset-0" style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ef4444' fill-opacity='0.1'%3E%3Cpath d='M20 20l-10-10v20l10-10z'/%3E%3C/g%3E%3C/svg%3E")`,
               }} />
             </div>
             
             {/* Content */}
-            <div className="relative p-8">
+            <div className="relative p-8 z-20">
               <div className="flex items-center space-x-4 mb-4">
                 <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center text-3xl shadow-lg">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
