@@ -4,9 +4,12 @@ import BuildLog from '@/components/BuildLog'
 
 export default function BasherFleetPage() {
   const xmaxxSpecs = {
-    chassis: 'Traxxas X-Maxx',
-    power: '8S LiPo',
-    keyUpgrades: '[User to fill in]'
+    chassis: 'Traxxas X-Maxx 8S - The Beast Unleashed',
+    power: '8S LiPo - Earth-Shaking 30+ Volts',
+    suspension: 'GTX Shocks - Air-Time Champions',
+    tires: 'Sledgehammer Belted - Grip & Destruction',
+    motor: 'VXL-8s Brushless - Relentless Torque Monster',
+    keyUpgrades: 'Aluminum Chassis Brace, RPM Arms, Steel Driveshafts - Battle-Tested Armor'
   }
 
   const videos = [

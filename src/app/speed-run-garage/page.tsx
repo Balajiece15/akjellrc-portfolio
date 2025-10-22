@@ -6,11 +6,11 @@ export default function SpeedRunGaragePage() {
   const limitlessSpecs = {
     chassis: 'Arrma Limitless V1',
     personalBest: '120 mph',
-    gyro: 'Futaba GYC441',
-    aerodynamics: 'RAZ1',
-    motor: '[User to fill in]',
-    esc: '[User to fill in]',
-    gearing: '[User to fill in]'
+    gyro: 'Futaba GYC441 - Precision Stability Control',
+    aerodynamics: 'RAZ1 Custom Body - Wind-Cutting Perfection',
+    motor: 'Spektrum Firma 2050Kv Brushless - Pure Thunder',
+    esc: 'Spektrum Firma 160A Smart ESC - Unleashed Power',
+    gearing: '11T Pinion / 54T Spur - Speed Optimized'
   }
 
   const videos = [
@@ -36,17 +36,28 @@ export default function SpeedRunGaragePage() {
     <div className="min-h-screen">
       {/* Enhanced Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-garage-dark via-orange-900/20 to-garage-medium mb-12">
-        {/* Background Effects */}
-        <div className="absolute inset-0 opacity-20">
+        {/* High-Quality Speed Track Background */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10"></div>
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`
+            }}
+          />
+        </div>
+        
+        {/* Speed-themed Pattern Overlay */}
+        <div className="absolute inset-0 opacity-20 z-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff6b35' fill-opacity='0.1'%3E%3Cpath d='M50 50c13.8 0 25-11.2 25-25S63.8 0 50 0 25 11.2 25 25s11.2 25 25 25z'/%3E%3C/g%3E%3C/svg%3E")`,
           }} />
         </div>
         
         {/* Speed Effects */}
-        <div className="absolute top-10 right-10 text-6xl opacity-50 animate-pulse">💨</div>
-        <div className="absolute bottom-10 left-10 text-5xl opacity-40 animate-bounce">⚡</div>
-        <div className="absolute top-1/3 right-20 text-4xl opacity-30 transform rotate-12">🏁</div>
+        <div className="absolute top-10 right-10 text-6xl opacity-50 animate-pulse z-20">💨</div>
+        <div className="absolute bottom-10 left-10 text-5xl opacity-40 animate-bounce z-20">⚡</div>
+        <div className="absolute top-1/3 right-20 text-4xl opacity-30 transform rotate-12 z-20">🏁</div>
         
         <div className="relative max-w-6xl mx-auto px-4 py-20">
           <div className="text-center">
