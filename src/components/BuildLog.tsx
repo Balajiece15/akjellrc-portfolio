@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useAuth } from '@/lib/auth'
+import AdminLogin from '@/components/AdminLogin'
 
 interface BuildEntry {
   id: number
@@ -14,6 +16,7 @@ interface BuildEntry {
 }
 
 export default function BuildLog() {
+  const { isAdmin } = useAuth()
   const [entries, setEntries] = useState<BuildEntry[]>([])
   const [editingEntry, setEditingEntry] = useState<BuildEntry | null>(null)
   const [newEntry, setNewEntry] = useState({
@@ -89,6 +92,13 @@ export default function BuildLog() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Check admin authentication first
+    if (!isAdmin) {
+      alert('Admin authentication required to add or edit build entries')
+      return
+    }
+    
     if (newEntry.date && newEntry.partBroken) {
       if (editingEntry) {
         // Update existing entry
@@ -130,17 +140,27 @@ export default function BuildLog() {
 
   return (
     <div className="space-y-6">
+      {/* Admin Login Component */}
+      <AdminLogin />
+      
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-white">Build & Repair History</h3>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="garage-button"
-        >
-          {showForm ? 'Cancel' : 'Add Entry'}
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="garage-button"
+          >
+            {showForm ? 'Cancel' : 'Add Entry'}
+          </button>
+        )}
+        {!isAdmin && (
+          <div className="text-gray-400 text-sm px-4 py-2 border border-gray-500 rounded bg-gray-800/50">
+            🔒 Admin login required to add entries
+          </div>
+        )}
       </div>
 
-      {showForm && (
+      {showForm && isAdmin && (
         <form onSubmit={handleSubmit} className="garage-card space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
@@ -218,20 +238,23 @@ export default function BuildLog() {
                     </span>
                   </div>
                   
-                  <div className="flex space-x-2 ml-4">
-                    <button
-                      onClick={() => handleEdit(entry)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                    >
-                      ✏️ Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(entry.id)}
-                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-                    >
-                      🗑️ Delete
-                    </button>
-                  </div>
+                  {/* Admin-only Edit/Delete buttons */}
+                  {isAdmin && (
+                    <div className="flex space-x-2 ml-4">
+                      <button
+                        onClick={() => handleEdit(entry)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(entry.id)}
+                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                      >
+                        🗑️ Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
                 
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
