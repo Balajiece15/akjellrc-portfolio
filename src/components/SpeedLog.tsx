@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useAuth } from '@/lib/auth'
+import AdminLogin from '@/components/AdminLogin'
 
 interface SpeedRun {
   id: number
@@ -15,6 +17,7 @@ interface SpeedRun {
 }
 
 export default function SpeedLog() {
+  const { isAdmin } = useAuth()
   const [runs, setRuns] = useState<SpeedRun[]>([])
   const [editingRun, setEditingRun] = useState<SpeedRun | null>(null)
   const [newRun, setNewRun] = useState({
@@ -66,6 +69,12 @@ export default function SpeedLog() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Check admin authentication first
+    if (!isAdmin) {
+      alert('Admin authentication required to add or edit speed runs')
+      return
+    }
     
     // Validate date format and ensure it's not empty
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/
@@ -162,17 +171,27 @@ export default function SpeedLog() {
 
   return (
     <div className="space-y-6">
+      {/* Admin Login Component */}
+      <AdminLogin />
+      
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-white">Speed Runs</h3>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="garage-button"
-        >
-          {showForm ? 'Cancel' : 'Add New Run'}
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="garage-button"
+          >
+            {showForm ? 'Cancel' : 'Add New Run'}
+          </button>
+        )}
+        {!isAdmin && (
+          <div className="text-gray-400 text-sm px-4 py-2 border border-gray-500 rounded bg-gray-800/50">
+            🔒 Admin login required to add runs
+          </div>
+        )}
       </div>
 
-      {showForm && (
+      {showForm && isAdmin && (
         <form onSubmit={handleSubmit} className="garage-card space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
@@ -305,20 +324,23 @@ export default function SpeedLog() {
                     )}
                   </div>
                   
-                  <div className="flex space-x-2 ml-4">
-                    <button
-                      onClick={() => handleEdit(run)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                    >
-                      ✏️ Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(run.id)}
-                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-                    >
-                      🗑️ Delete
-                    </button>
-                  </div>
+                  {/* Admin-only Edit/Delete buttons */}
+                  {isAdmin && (
+                    <div className="flex space-x-2 ml-4">
+                      <button
+                        onClick={() => handleEdit(run)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(run.id)}
+                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                      >
+                        🗑️ Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
