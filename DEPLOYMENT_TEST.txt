@@ -1,0 +1,10 @@
+HD IMAGE DEPLOYMENT TEST - October 22, 2025
+This file confirms the latest deployment includes HD image enhancements.
+
+Changes should include:
+- HD backgrounds on homepage navigation cards  
+- Speed Run Garage racing imagery
+- Basher Fleet off-road action shots
+- Enhanced component cards with HD overlays
+
+If you see this file on the live site, the deployment is working.
