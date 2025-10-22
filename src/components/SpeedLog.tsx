@@ -18,7 +18,7 @@ export default function SpeedLog() {
   const [runs, setRuns] = useState<SpeedRun[]>([])
   const [editingRun, setEditingRun] = useState<SpeedRun | null>(null)
   const [newRun, setNewRun] = useState({
-    date: '',
+    date: new Date().toISOString().split('T')[0], // Default to today's date
     speed: '',
     gearing: '',
     battery: '',
@@ -66,45 +66,71 @@ export default function SpeedLog() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (newRun.date && newRun.speed) {
-      const youtubeLinks = newRun.youtubeLinks 
-        ? newRun.youtubeLinks.split(',').map(link => link.trim()).filter(link => link)
-        : []
-
-      if (editingRun) {
-        // Update existing run
-        const updatedRuns = runs.map(run => 
-          run.id === editingRun.id 
-            ? {
-                ...run,
-                date: newRun.date,
-                speed: parseFloat(newRun.speed),
-                gearing: newRun.gearing,
-                battery: newRun.battery,
-                notes: newRun.notes,
-                youtubeLinks
-              }
-            : run
-        )
-        setRuns(updatedRuns)
-        setEditingRun(null)
-      } else {
-        // Create new run
-        const run: SpeedRun = {
-          id: Date.now(),
-          date: newRun.date,
-          speed: parseFloat(newRun.speed),
-          gearing: newRun.gearing,
-          battery: newRun.battery,
-          notes: newRun.notes,
-          youtubeLinks
-        }
-        const updatedRuns = [run, ...runs]
-        setRuns(updatedRuns)
-      }
-      setNewRun({ date: '', speed: '', gearing: '', battery: '', notes: '', youtubeLinks: '' })
-      setShowForm(false)
+    
+    // Validate date format and ensure it's not empty
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+    if (!newRun.date || !dateRegex.test(newRun.date)) {
+      alert('Please enter a valid date in YYYY-MM-DD format')
+      return
     }
+    
+    // Validate that it's a real date
+    const inputDate = new Date(newRun.date)
+    if (isNaN(inputDate.getTime())) {
+      alert('Please enter a valid date')
+      return
+    }
+    
+    // Validate speed
+    if (!newRun.speed || parseFloat(newRun.speed) <= 0) {
+      alert('Please enter a valid speed greater than 0')
+      return
+    }
+    
+    const youtubeLinks = newRun.youtubeLinks 
+      ? newRun.youtubeLinks.split(',').map(link => link.trim()).filter(link => link)
+      : []
+
+    if (editingRun) {
+      // Update existing run
+      const updatedRuns = runs.map(run => 
+        run.id === editingRun.id 
+          ? {
+              ...run,
+              date: newRun.date,
+              speed: parseFloat(newRun.speed),
+              gearing: newRun.gearing,
+              battery: newRun.battery,
+              notes: newRun.notes,
+              youtubeLinks
+            }
+          : run
+      )
+      setRuns(updatedRuns)
+      setEditingRun(null)
+    } else {
+      // Create new run
+      const run: SpeedRun = {
+        id: Date.now(),
+        date: newRun.date,
+        speed: parseFloat(newRun.speed),
+        gearing: newRun.gearing,
+        battery: newRun.battery,
+        notes: newRun.notes,
+        youtubeLinks
+      }
+      const updatedRuns = [run, ...runs]
+      setRuns(updatedRuns)
+    }
+    setNewRun({ 
+      date: new Date().toISOString().split('T')[0], // Reset to today's date
+      speed: '', 
+      gearing: '', 
+      battery: '', 
+      notes: '', 
+      youtubeLinks: '' 
+    })
+    setShowForm(false)
   }
 
   const handleEdit = (run: SpeedRun) => {
@@ -155,9 +181,14 @@ export default function SpeedLog() {
                 type="date"
                 value={newRun.date}
                 onChange={(e) => setNewRun({ ...newRun, date: e.target.value })}
-                className="w-full bg-garage-medium border border-garage-light rounded px-3 py-2 text-white"
+                className="w-full bg-garage-medium border border-garage-light rounded px-3 py-2 text-white focus:border-orange-500 focus:outline-none"
                 required
+                max={new Date().toISOString().split('T')[0]}
+                min="2020-01-01"
               />
+              <p className="text-xs text-gray-500 mt-1">
+                Select a valid date (format: YYYY-MM-DD)
+              </p>
             </div>
             <div>
               <label className="block text-gray-400 mb-2">Speed (MPH)</label>
@@ -220,7 +251,14 @@ export default function SpeedLog() {
               type="button" 
               onClick={() => {
                 setEditingRun(null)
-                setNewRun({ date: '', speed: '', gearing: '', battery: '', notes: '', youtubeLinks: '' })
+                setNewRun({ 
+                  date: new Date().toISOString().split('T')[0], // Reset to today's date
+                  speed: '', 
+                  gearing: '', 
+                  battery: '', 
+                  notes: '', 
+                  youtubeLinks: '' 
+                })
                 setShowForm(false)
               }}
               className="ml-4 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg"
