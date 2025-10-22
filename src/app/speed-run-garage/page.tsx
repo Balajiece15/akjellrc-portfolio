@@ -25,6 +25,7 @@ export default function SpeedRunGarage() {
       id: '2419-158691975_small',
       title: 'Arrma Limitless V1 - Speed Run Session',
       src: '/videos/2419-158691975_small.mp4',
+      poster: '/images/rc-4718649_1280.jpg',
       channel: '@akjellrc',
       duration: '2:45'
     },
@@ -32,6 +33,7 @@ export default function SpeedRunGarage() {
       id: '3853818147-preview',
       title: 'RC Speed Testing - High Performance Run', 
       src: '/videos/3853818147-preview.mp4',
+      poster: '/images/rc-car-4562873_1280.jpg',
       channel: '@akjellrc',
       duration: '3:12'
     },
@@ -39,6 +41,7 @@ export default function SpeedRunGarage() {
       id: '5892345-hd_1280_720_25fps',
       title: 'Limitless V1 - Track Performance',
       src: '/videos/5892345-hd_1280_720_25fps.mp4',
+      poster: '/images/rc-1-8-5288099_1280.jpg',
       channel: '@akjellrc',
       duration: '1:58'
     }
@@ -160,7 +163,7 @@ export default function SpeedRunGarage() {
                         muted
                         loop
                         className="rounded"
-                        poster="/images/rc-4718649_1280.jpg"
+                        poster={video.poster}
                       >
                         <source src={video.src} type="video/mp4" />
                         Your browser does not support the video tag.

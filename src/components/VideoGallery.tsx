@@ -2,6 +2,7 @@ interface Video {
   id: string
   title: string
   src?: string  // For local videos
+  poster?: string  // For video thumbnails
   channel?: string
   duration?: string
 }
@@ -43,9 +44,11 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
                 width="100%"
                 height="100%"
                 controls
+                autoPlay
                 muted
+                loop
                 className="rounded-lg"
-                poster="/images/rc-4718649_1280.jpg"
+                poster={video.poster || "/images/rc-car-2478333_1280.jpg"}
               >
                 <source src={video.src} type="video/mp4" />
                 Your browser does not support the video tag.
