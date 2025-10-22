@@ -291,7 +291,7 @@ export default function BuildLog() {
               )}
             </div>
           </div>
-        )}}
+        ))}
       </div>
     </div>
   )
