@@ -53,7 +53,7 @@ export default function Home() {
               </svg>
             </div>
             <h1 className="text-8xl font-black text-white tracking-tight bg-gradient-to-r from-white via-garage-accent to-white bg-clip-text text-transparent">
-              🔥 TESTING DEPLOYMENT 🔥
+              AkjellRC
             </h1>
             <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-garage-accent rounded-full flex items-center justify-center shadow-2xl">
               <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
