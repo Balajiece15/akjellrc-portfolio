@@ -197,78 +197,81 @@ export default function BuildLog() {
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
               style={{
-                backgroundImage: 'url(https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80)'
+                backgroundImage: 'url(/images/off-road-outlaw-5063678_1280.jpg)'
               }}
             />
             
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-garage-dark/90 via-garage-dark/95 to-garage-dark/85" />
             
-            {/* Content */}
-            <div className="relative z-10">
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex-1">
-                  <h4 className="text-lg font-semibold text-white mb-2">
-                    {entry.partBroken} → {entry.partUpgradedTo || 'Repair'}
-                  </h4>
-                  <span className="text-garage-accent text-sm font-mono">
-                    {entry.date}
-                  </span>
+            {/* Enhanced Layout: Left Content, Right Videos */}
+            <div className="relative z-10 flex flex-col lg:flex-row gap-6">
+              {/* Left Side: Main Content */}
+              <div className="flex-1">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold text-white mb-2">
+                      {entry.partBroken} → {entry.partUpgradedTo || 'Repair'}
+                    </h4>
+                    <span className="text-garage-accent text-sm font-mono">
+                      {entry.date}
+                    </span>
+                  </div>
+                  
+                  <div className="flex space-x-2 ml-4">
+                    <button
+                      onClick={() => handleEdit(entry)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                    >
+                      ✏️ Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(entry.id)}
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                    >
+                      🗑️ Delete
+                    </button>
+                  </div>
                 </div>
                 
-                <div className="flex space-x-2 ml-4">
-                  <button
-                    onClick={() => handleEdit(entry)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                  >
-                    ✏️ Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(entry.id)}
-                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-                  >
-                    🗑️ Delete
-                  </button>
-                </div>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <span className="text-gray-400 text-sm">Broken:</span>
-                  <p className="text-white">{entry.partBroken}</p>
-                </div>
-                {entry.partUpgradedTo && (
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <span className="text-gray-400 text-sm">Upgraded to:</span>
-                    <p className="text-garage-accent">{entry.partUpgradedTo}</p>
+                    <span className="text-gray-400 text-sm">Broken:</span>
+                    <p className="text-white">{entry.partBroken}</p>
+                  </div>
+                  {entry.partUpgradedTo && (
+                    <div>
+                      <span className="text-gray-400 text-sm">Upgraded to:</span>
+                      <p className="text-garage-accent">{entry.partUpgradedTo}</p>
+                    </div>
+                  )}
+                </div>
+                
+                {entry.notes && (
+                  <div className="mb-4">
+                    <span className="text-gray-400 text-sm">Notes:</span>
+                    <p className="text-gray-300 mt-1">{entry.notes}</p>
                   </div>
                 )}
               </div>
-              
-              {entry.notes && (
-                <div className="mb-4">
-                  <span className="text-gray-400 text-sm">Notes:</span>
-                  <p className="text-gray-300 mt-1">{entry.notes}</p>
-                </div>
-              )}
 
-              {/* YouTube Videos */}
+              {/* Right Side: YouTube Videos with Autoplay */}
               {entry.youtubeLinks && entry.youtubeLinks.length > 0 && (
-                <div className="mt-4">
-                  <h5 className="text-garage-accent font-semibold mb-3">📹 Related Videos</h5>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {entry.youtubeLinks.map((link, index) => {
+                <div className="lg:w-80 flex-shrink-0">
+                  <h5 className="text-garage-accent font-semibold mb-3">📹 Build Videos</h5>
+                  <div className="space-y-3">
+                    {entry.youtubeLinks.slice(0, 2).map((link, index) => {
                       const videoId = extractYouTubeId(link)
                       if (!videoId) return null
                       
                       return (
-                        <div key={index} className="bg-garage-medium rounded-lg p-3">
+                        <div key={index} className="bg-garage-medium rounded-lg p-2">
                           <div className="aspect-video mb-2">
                             <iframe
                               width="100%"
                               height="100%"
-                              src={`https://www.youtube.com/embed/${videoId}`}
-                              title={`Video ${index + 1}`}
+                              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}`}
+                              title={`Build Video ${index + 1}`}
                               frameBorder="0"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -279,9 +282,9 @@ export default function BuildLog() {
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-garage-accent hover:text-garage-secondary text-xs"
+                            className="text-garage-accent hover:text-garage-secondary text-xs block"
                           >
-                            Watch on YouTube →
+                            Watch Full Video →
                           </a>
                         </div>
                       )

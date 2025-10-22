@@ -5,15 +5,15 @@ import SectionCard from '@/components/SectionCard'
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Enhanced Background */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-garage-dark via-garage-medium to-garage-light">
+      {/* Enhanced Hero Section with Custom Images */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-garage-dark via-garage-medium to-garage-light py-16">
         {/* High-Quality RC Background Image */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10"></div>
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: 'url(https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=2000&q=80)'
+              backgroundImage: 'url(/images/rc-car-4562873_1280.jpg)'
             }}
           />
         </div>
@@ -117,7 +117,7 @@ export default function Home() {
               <div 
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=2000&q=80)'
+                  backgroundImage: 'url(/images/rc-1-8-5288099_1280.jpg)'
                 }}
               />
             </div>
@@ -173,7 +173,7 @@ export default function Home() {
               <div 
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=2000&q=80)'
+                  backgroundImage: 'url(/images/rc-car-2478333_1280.jpg)'
                 }}
               />
             </div>
