@@ -33,11 +33,55 @@ export default function SpeedRunGaragePage() {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto space-y-12">
-      {/* Header */}
-      <div className="text-center">
-        <h1 className="section-title">Speed Run Garage</h1>
-        <p className="subtitle">The Pursuit of Speed</p>
+    <div className="min-h-screen">
+      {/* Enhanced Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-garage-dark via-orange-900/20 to-garage-medium mb-12">
+        {/* Background Effects */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff6b35' fill-opacity='0.1'%3E%3Cpath d='M50 50c13.8 0 25-11.2 25-25S63.8 0 50 0 25 11.2 25 25s11.2 25 25 25z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+        
+        {/* Speed Effects */}
+        <div className="absolute top-10 right-10 text-6xl opacity-50 animate-pulse">💨</div>
+        <div className="absolute bottom-10 left-10 text-5xl opacity-40 animate-bounce">⚡</div>
+        <div className="absolute top-1/3 right-20 text-4xl opacity-30 transform rotate-12">🏁</div>
+        
+        <div className="relative max-w-6xl mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="inline-flex items-center space-x-6 mb-8">
+              <div className="w-20 h-20 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 rounded-full flex items-center justify-center shadow-2xl">
+                <span className="text-4xl">🚀</span>
+              </div>
+              <h1 className="text-8xl font-black bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent tracking-tight">
+                Speed Run Garage
+              </h1>
+              <div className="w-20 h-20 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl">
+                <span className="text-4xl">⚡</span>
+              </div>
+            </div>
+            <p className="text-3xl text-orange-300 font-light mb-8">
+              The Pursuit of Speed
+            </p>
+            
+            {/* Achievement Badges */}
+            <div className="flex justify-center space-x-6 mb-8">
+              <div className="bg-garage-medium border-2 border-orange-500 px-6 py-3 rounded-full text-orange-400 font-bold shadow-lg">
+                🏆 120 MPH Record
+              </div>
+              <div className="bg-garage-medium border-2 border-red-500 px-6 py-3 rounded-full text-red-400 font-bold shadow-lg">
+                ⚡ Limitless V1
+              </div>
+              <div className="bg-garage-medium border-2 border-yellow-500 px-6 py-3 rounded-full text-yellow-400 font-bold shadow-lg">
+                🎯 Precision Tuned
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto space-y-12">
       </div>
 
       {/* Story Section */}

@@ -21,12 +21,56 @@ export default function BasherFleetPage() {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto space-y-12">
-      {/* Header */}
-      <div className="text-center">
-        <h1 className="section-title">Basher Fleet</h1>
-        <p className="subtitle">X-Maxx Sunday</p>
+    <div className="min-h-screen">
+      {/* Enhanced Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-garage-dark via-red-900/20 to-garage-medium mb-12">
+        {/* Background Effects */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ef4444' fill-opacity='0.1'%3E%3Cpath d='M60 60c16.6 0 30-13.4 30-30S76.6 0 60 0 30 13.4 30 30s13.4 30 30 30z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+        
+        {/* Action Effects */}
+        <div className="absolute top-10 right-10 text-6xl opacity-50 animate-pulse">💥</div>
+        <div className="absolute bottom-10 left-10 text-5xl opacity-40 animate-bounce">🚛</div>
+        <div className="absolute top-1/3 right-20 text-4xl opacity-30 transform rotate-45">💨</div>
+        <div className="absolute bottom-1/3 left-20 text-3xl opacity-20 transform -rotate-12">🔥</div>
+        
+        <div className="relative max-w-6xl mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="inline-flex items-center space-x-6 mb-8">
+              <div className="w-20 h-20 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-full flex items-center justify-center shadow-2xl">
+                <span className="text-4xl">🚛</span>
+              </div>
+              <h1 className="text-8xl font-black bg-gradient-to-r from-red-400 via-orange-500 to-yellow-400 bg-clip-text text-transparent tracking-tight">
+                Basher Fleet
+              </h1>
+              <div className="w-20 h-20 bg-gradient-to-r from-yellow-500 via-red-500 to-orange-500 rounded-full flex items-center justify-center shadow-2xl">
+                <span className="text-4xl">💥</span>
+              </div>
+            </div>
+            <p className="text-3xl text-red-300 font-light mb-8">
+              X-Maxx Sunday
+            </p>
+            
+            {/* Action Badges */}
+            <div className="flex justify-center space-x-6 mb-8">
+              <div className="bg-garage-medium border-2 border-red-500 px-6 py-3 rounded-full text-red-400 font-bold shadow-lg">
+                💥 High Impact
+              </div>
+              <div className="bg-garage-medium border-2 border-orange-500 px-6 py-3 rounded-full text-orange-400 font-bold shadow-lg">
+                🚛 X-Maxx Power
+              </div>
+              <div className="bg-garage-medium border-2 border-yellow-500 px-6 py-3 rounded-full text-yellow-400 font-bold shadow-lg">
+                🔥 8S Beast
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      <div className="max-w-7xl mx-auto space-y-12">
 
       {/* Story Section */}
       <div className="garage-card">
@@ -53,6 +97,7 @@ export default function BasherFleetPage() {
       <div>
         <h2 className="text-3xl font-bold text-white mb-6">Build & Repair Log</h2>
         <BuildLog />
+      </div>
       </div>
     </div>
   )
