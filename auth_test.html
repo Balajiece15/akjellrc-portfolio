@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Authentication Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .test-section {
+            background-color: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        .success {
+            color: #4caf50;
+        }
+        .error {
+            color: #f44336;
+        }
+        .info {
+            color: #2196f3;
+        }
+        #console-output {
+            background-color: #000;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>AkjellRC Admin Authentication Test</h1>
+    
+    <div class="test-section">
+        <h2>Password Authentication Test</h2>
+        <p>Test the exact same logic used in the React components:</p>
+        
+        <form id="loginForm">
+            <div>
+                <label for="password">Enter Admin Password:</label><br>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <div>
+                <button type="submit">Test Login</button>
+                <button type="button" onclick="testPasswords()">Test All Passwords</button>
+                <button type="button" onclick="clearConsole()">Clear Console</button>
+            </div>
+        </form>
+        
+        <div id="result" style="margin-top: 15px;"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Console Output</h2>
+        <div id="console-output"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Authentication Status</h2>
+        <div id="auth-status">Not logged in</div>
+        <button onclick="logout()">Logout</button>
+        <button onclick="checkStatus()">Check Status</button>
+    </div>
+
+    <script>
+        // Exact same constants from auth.tsx
+        const ADMIN_PASSWORD = 'akjellrc2025';
+        const BACKUP_PASSWORD = 'admin123';
+        
+        let isAdmin = false;
+        
+        // Console logging function
+        function logToConsole(message) {
+            const consoleDiv = document.getElementById('console-output');
+            const timestamp = new Date().toLocaleTimeString();
+            consoleDiv.textContent += `[${timestamp}] ${message}\n`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        // Exact same login logic from auth.tsx
+        function login(password) {
+            logToConsole('Login attempt with password: ' + password);
+            logToConsole('Expected password: ' + ADMIN_PASSWORD);
+            logToConsole('Backup password: ' + BACKUP_PASSWORD);
+            logToConsole('Password length: ' + password.length);
+            logToConsole('Expected length: ' + ADMIN_PASSWORD.length);
+            
+            // Trim whitespace and check both passwords
+            const cleanPassword = password.trim();
+            const isValidPassword = cleanPassword === ADMIN_PASSWORD || cleanPassword === BACKUP_PASSWORD;
+            logToConsole('Password comparison result: ' + isValidPassword);
+            
+            if (isValidPassword) {
+                isAdmin = true;
+                localStorage.setItem('akjellrc_admin_logged_in', 'true');
+                logToConsole('Login successful');
+                updateAuthStatus();
+                return true;
+            }
+            logToConsole('Login failed');
+            return false;
+        }
+        
+        function logout() {
+            isAdmin = false;
+            localStorage.removeItem('akjellrc_admin_logged_in');
+            logToConsole('Logged out');
+            updateAuthStatus();
+        }
+        
+        function updateAuthStatus() {
+            const statusDiv = document.getElementById('auth-status');
+            if (isAdmin) {
+                statusDiv.innerHTML = '<span class="success">✅ Admin logged in</span>';
+            } else {
+                statusDiv.innerHTML = '<span class="error">❌ Not logged in</span>';
+            }
+        }
+        
+        function checkStatus() {
+            const adminStatus = localStorage.getItem('akjellrc_admin_logged_in');
+            if (adminStatus === 'true') {
+                isAdmin = true;
+            }
+            logToConsole('Checking status - localStorage: ' + adminStatus + ', isAdmin: ' + isAdmin);
+            updateAuthStatus();
+        }
+        
+        function clearConsole() {
+            document.getElementById('console-output').textContent = '';
+        }
+        
+        function testPasswords() {
+            const testPasswords = [
+                'akjellrc2025',
+                'admin123',
+                'akjellrc2025 ',  // with trailing space
+                ' akjellrc2025',  // with leading space
+                'AKJELLRC2025',   // uppercase
+                'wrong password',
+                ''
+            ];
+            
+            logToConsole('=== Testing multiple passwords ===');
+            testPasswords.forEach(pwd => {
+                logToConsole(`\nTesting password: "${pwd}"`);
+                const result = login(pwd);
+                logToConsole(`Result: ${result ? 'SUCCESS' : 'FAILED'}`);
+                if (result) {
+                    logout(); // Reset for next test
+                }
+            });
+        }
+        
+        // Form submit handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const result = login(password);
+            
+            const resultDiv = document.getElementById('result');
+            if (result) {
+                resultDiv.innerHTML = '<span class="success">✅ Login successful!</span>';
+                document.getElementById('password').value = '';
+            } else {
+                resultDiv.innerHTML = '<span class="error">❌ Login failed. Try "akjellrc2025" or "admin123"</span>';
+            }
+        });
+        
+        // Initialize
+        checkStatus();
+        logToConsole('Authentication test page loaded');
+        logToConsole('Available passwords: "' + ADMIN_PASSWORD + '" and "' + BACKUP_PASSWORD + '"');
+    </script>
+</body>
+</html>

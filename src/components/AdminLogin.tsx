@@ -11,13 +11,18 @@ export default function AdminLogin() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
+    console.log('Form submitted with password:', password)
+    console.log('Password length:', password.length)
+    console.log('Auth context available:', !!login)
+    
     const success = login(password)
+    console.log('Login result:', success)
     if (success) {
       setPassword('')
       setError('')
       setShowLogin(false)
     } else {
-      setError('Invalid admin password')
+      setError('Invalid admin password. Try "akjellrc2025" or "admin123"')
       setPassword('')
     }
   }

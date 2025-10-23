@@ -13,6 +13,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 // Admin password - in production, this should be environment variable
 const ADMIN_PASSWORD = 'akjellrc2025'
+const BACKUP_PASSWORD = 'admin123' // Backup password for testing
 
 interface AuthProviderProps {
   children: ReactNode
@@ -32,11 +33,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   const login = (password: string): boolean => {
-    if (password === ADMIN_PASSWORD) {
+    console.log('Login attempt with password:', password)
+    console.log('Expected password:', ADMIN_PASSWORD)
+    console.log('Backup password:', BACKUP_PASSWORD)
+    console.log('Password length:', password.length)
+    console.log('Expected length:', ADMIN_PASSWORD.length)
+    
+    // Trim whitespace and check both passwords
+    const cleanPassword = password.trim()
+    const isValidPassword = cleanPassword === ADMIN_PASSWORD || cleanPassword === BACKUP_PASSWORD
+    console.log('Password comparison result:', isValidPassword)
+    
+    if (isValidPassword) {
       setIsAdmin(true)
       localStorage.setItem('akjellrc_admin_logged_in', 'true')
+      console.log('Login successful')
       return true
     }
+    console.log('Login failed')
     return false
   }
 
