@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import SpecSheet from '@/components/SpecSheet'
-import SpeedLog from '@/components/SpeedLog'
+import SpeedLogKV from '@/components/SpeedLogKV'
 import VideoGallery from '@/components/VideoGallery'
 
 export default function SpeedRunGarage() {
@@ -87,7 +87,7 @@ export default function SpeedRunGarage() {
         {/* Speed Log Section - MOVED UP */}
         <div className="garage-card">
           <h2 className="text-3xl font-bold text-white mb-6">🏁 Speed Runs & Personal Bests</h2>
-          <SpeedLog />
+          <SpeedLogKV />
         </div>
 
         {/* Ready for Action Section - WITH CONTENT */}

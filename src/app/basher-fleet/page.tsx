@@ -1,6 +1,6 @@
 import SpecSheet from '@/components/SpecSheet'
 import VideoGallery from '@/components/VideoGallery'
-import BuildLog from '@/components/BuildLog'
+import BuildLogKV from '@/components/BuildLogKV'
 
 export default function BasherFleetPage() {
   const xmaxxSpecs = {
@@ -110,7 +110,7 @@ export default function BasherFleetPage() {
       {/* Build & Repair Log */}
       <div>
         <h2 className="text-3xl font-bold text-white mb-6">Build & Repair Log</h2>
-        <BuildLog />
+        <BuildLogKV />
       </div>
       </div>
     </div>
