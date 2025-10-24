@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import DatabaseManager from '@/components/DatabaseManager'
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -129,7 +130,8 @@ export default function AdminPage() {
         <div className="space-y-4">
           <div className="p-4 bg-garage-medium rounded-lg">
             <h3 className="text-lg font-semibold text-white mb-2">Database Status</h3>
-            <p className="text-green-400">✓ Connected and operational</p>
+            <p className="text-green-400">✓ Connected to redis-green-island</p>
+            <p className="text-sm text-gray-400">Namespace: akjellrc (isolated from other projects)</p>
           </div>
           
           <div className="p-4 bg-garage-medium rounded-lg">
@@ -141,6 +143,9 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
+
+      {/* Database Manager Component */}
+      <DatabaseManager />
     </div>
   )
 }

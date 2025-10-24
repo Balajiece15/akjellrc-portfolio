@@ -1,30 +1,47 @@
-# 🚀 Vercel Pro Deployment with KV Storage
+# 🚀 Vercel Pro Deployment with Shared KV Storage
 
-This guide will help you deploy your AkjellRC Portfolio website to Vercel Pro with persistent KV (Redis) storage for speed runs and build logs.
+This guide will help you deploy your AkjellRC Portfolio website to Vercel Pro using your existing **"redis-green-island"** KV database. This setup allows you to safely use the same database across multiple projects with proper data isolation.
 
 ## 📋 Prerequisites
 
 - ✅ Vercel Pro subscription (you have this!)
+- ✅ Existing KV database: **"redis-green-island"**
 - ✅ GitHub account with repository access
 - ✅ Node.js 18+ installed locally
 
-## 🗄️ Step 1: Set Up Vercel KV Database
+## 🗄️ Step 1: Connect to Your Existing KV Database
 
-### 1.1 Create KV Database
+### 1.1 Use Existing Database
+Since you already have **"redis-green-island"** database:
 1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
-2. Navigate to **Storage** tab
-3. Click **"Create Database"**
-4. Select **"KV (Redis)"**
-5. Name it: `akjellrc-storage`
-6. Choose region closest to your users (recommended: US East for fastest performance)
+2. Navigate to **Storage** → **redis-green-island**
+3. Click **"Connect Project"**
+4. Select your `akjellrc-portfolio` project
 
-### 1.2 Connect to Project
-1. In the KV database settings, click **"Connect Project"**
-2. Select your `akjellrc-portfolio` project
-3. Vercel will automatically add these environment variables:
-   - `KV_REST_API_URL`
-   - `KV_REST_API_TOKEN`
-   - `KV_REST_API_READ_ONLY_TOKEN`
+### 1.2 Verify Environment Variables
+Vercel will automatically add these environment variables:
+- `KV_REST_API_URL`
+- `KV_REST_API_TOKEN`  
+- `KV_REST_API_READ_ONLY_TOKEN`
+
+## 🔐 Data Isolation & Multi-Project Safety
+
+### Project Namespace System
+This project uses **namespaced keys** to ensure data isolation:
+
+```
+Database: redis-green-island
+├── akjellrc:speed_runs     ← Your RC speed runs
+├── akjellrc:build_entries  ← Your RC build logs
+├── other-project:data      ← Future projects (safe separation)
+└── another-app:users       ← Other apps won't interfere
+```
+
+### Key Benefits:
+- ✅ **Safe multi-project usage** - no data conflicts
+- ✅ **Easy data management** - clear project separation  
+- ✅ **Cost effective** - one database for multiple projects
+- ✅ **Organized structure** - each project has its own namespace
 
 ## 🌐 Step 2: Deploy to Vercel
 
@@ -93,14 +110,27 @@ For enhanced security, you can add:
 ## 📊 Step 5: Monitor Your KV Database
 
 ### 5.1 View KV Data
-1. Go to Vercel Dashboard → Storage → your KV database
+1. Go to Vercel Dashboard → Storage → **redis-green-island**
 2. Use the **"Data Browser"** to view stored data
-3. You should see keys: `speed_runs` and `build_entries`
+3. You should see namespaced keys:
+   - `akjellrc:speed_runs` - Your RC speed run data
+   - `akjellrc:build_entries` - Your RC build log data
 
-### 5.2 KV Usage Monitoring
-- **Vercel Pro includes**: 100,000 KV operations/month
-- Monitor usage in the Storage dashboard
-- Your RC logs should use minimal operations
+### 5.2 Multi-Project Management
+Your database structure will look like:
+```
+redis-green-island/
+├── akjellrc:speed_runs      ← RC Portfolio speed runs
+├── akjellrc:build_entries   ← RC Portfolio build logs  
+├── future-project:users     ← Future project data
+└── another-app:settings     ← Another app's data
+```
+
+### 5.3 Database Statistics
+Access project statistics via API:
+- **GET** `/api/database?action=stats` - Project statistics
+- **GET** `/api/database?action=config` - Configuration info
+- **GET** `/api/database?action=export` - Export project data
 
 ## 🔄 Step 6: Data Migration (If Needed)
 
@@ -188,14 +218,49 @@ If you encounter issues:
 
 ---
 
+## 🔐 Multi-Project Database Management
+
+### Best Practices for Shared Database:
+
+#### ✅ **Do:**
+- Use project-specific namespaces (like `akjellrc:`)
+- Keep related data grouped by project
+- Monitor usage across all projects
+- Regular data exports for backup
+
+#### ❌ **Don't:**
+- Use generic key names without namespace
+- Store sensitive data without encryption
+- Delete other projects' data
+- Exceed the 100,000 operations/month limit
+
+### Future Projects Setup:
+When adding new projects to **redis-green-island**:
+
+1. **Choose unique namespace**: `myapp:`, `website2:`, etc.
+2. **Update project's config**: Set `PROJECT_NAMESPACE` in config
+3. **Connect same database**: Use existing **redis-green-island**  
+4. **Test isolation**: Verify no data conflicts
+
+## 💰 Cost Management
+
+### Vercel Pro KV Limits:
+- ✅ **100,000 operations/month** total across ALL projects
+- ✅ **1GB storage** total across ALL projects  
+- ✅ **Unlimited** databases (but better to use one shared)
+
+### Operations Breakdown:
+- **AkjellRC Project**: ~50-100 operations/month (very light usage)
+- **Available for other projects**: 99,900+ operations/month
+- **Cost effective**: One database serves multiple projects
+
 ## 🎉 Congratulations!
 
 Your AkjellRC Portfolio is now deployed with:
-- ✅ Vercel Pro hosting
-- ✅ KV Redis storage
-- ✅ Admin authentication
-- ✅ Persistent data storage
-- ✅ Mobile-optimized interface
-- ✅ Professional deployment setup
+- ✅ **Shared KV database** (redis-green-island)
+- ✅ **Project-isolated data** (akjellrc: namespace)
+- ✅ **Multi-project ready** (safe for future projects)
+- ✅ **Cost-effective setup** (one database, multiple projects)
+- ✅ **Professional data management** (namespaced and organized)
 
-Your RC car logs will now persist forever and be accessible from anywhere! 🏁
+Your RC car logs are safely stored and won't conflict with future projects! 🏁
