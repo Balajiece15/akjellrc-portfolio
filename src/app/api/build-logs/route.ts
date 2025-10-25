@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { BuildLogStorage } from '@/lib/kv-storage'
+import { BuildLogStorage } from '@/lib/redis-storage'
 
 export async function GET() {
   try {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { DatabaseManager } from '@/lib/kv-storage'
+import { DatabaseManager } from '@/lib/redis-storage'
 import { DATABASE_CONFIG, validateDatabaseConfig } from '@/lib/database-config'
 
 export async function GET(request: NextRequest) {

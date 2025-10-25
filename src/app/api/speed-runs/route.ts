@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { SpeedRunStorage } from '@/lib/kv-storage'
+import { SpeedRunStorage } from '@/lib/redis-storage'
 
 export async function GET() {
   try {

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/lib/auth'
 import AdminLogin from '@/components/AdminLogin'
-import { SpeedRun } from '@/lib/kv-storage'
+import { SpeedRun } from '@/lib/redis-storage'
 
 export default function SpeedLogKV() {
   const { isAdmin } = useAuth()
@@ -178,7 +178,7 @@ export default function SpeedLogKV() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold text-white">Speed Log (Vercel KV)</h3>
+        <h3 className="text-xl font-semibold text-white">Speed Log (Redis DB)</h3>
         <div className="flex items-center gap-4">
           {!isAdmin && <AdminLogin />}
           {isAdmin && (

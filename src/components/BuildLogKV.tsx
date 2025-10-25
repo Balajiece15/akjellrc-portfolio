@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/lib/auth'
 import AdminLogin from '@/components/AdminLogin'
-import { BuildEntry } from '@/lib/kv-storage'
+import { BuildEntry } from '@/lib/redis-storage'
 
 export default function BuildLogKV() {
   const { isAdmin } = useAuth()
@@ -213,7 +213,7 @@ export default function BuildLogKV() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-xl font-semibold text-white">Build Log (Vercel KV)</h3>
+          <h3 className="text-xl font-semibold text-white">Build Log (Redis DB)</h3>
           <p className="text-gray-400 text-sm">Total spent: ${totalCost.toFixed(2)}</p>
         </div>
         <div className="flex items-center gap-4">
