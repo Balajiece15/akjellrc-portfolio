@@ -308,7 +308,7 @@ export default function SpeedLogKV() {
           <div className="text-center py-8 text-gray-400">
             <p>No speed runs recorded yet.</p>
             {isAdmin && (
-              <p className="mt-2">Click "Add New Run" to log your first speed run!</p>
+              <p className="mt-2">Click &quot;Add New Run&quot; to log your first speed run!</p>
             )}
           </div>
         ) : (

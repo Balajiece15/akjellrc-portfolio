@@ -347,7 +347,7 @@ export default function BuildLogKV() {
           <div className="text-center py-8 text-gray-400">
             <p>No build entries recorded yet.</p>
             {isAdmin && (
-              <p className="mt-2">Click "Add Entry" to log your first build entry!</p>
+              <p className="mt-2">Click &quot;Add Entry&quot; to log your first build entry!</p>
             )}
           </div>
         ) : (
