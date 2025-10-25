@@ -1,28 +1,29 @@
-# 🚀 Vercel Pro Deployment with Shared KV Storage
+# 🚀 Vercel Pro Deployment with Redis Database
 
-This guide will help you deploy your AkjellRC Portfolio website to Vercel Pro using your existing **"redis-green-island"** KV database. This setup allows you to safely use the same database across multiple projects with proper data isolation.
+This guide will help you deploy your AkjellRC Portfolio website to Vercel Pro using your existing **"redis-green-island"** Redis database. This setup allows you to safely use the same database across multiple projects with proper data isolation.
 
 ## 📋 Prerequisites
 
 - ✅ Vercel Pro subscription (you have this!)
-- ✅ Existing KV database: **"redis-green-island"**
+- ✅ Existing Redis database: **"redis-green-island"**
 - ✅ GitHub account with repository access
 - ✅ Node.js 18+ installed locally
 
-## 🗄️ Step 1: Connect to Your Existing KV Database
+## 🗄️ Step 1: Configure Redis Database Connection
 
-### 1.1 Use Existing Database
-Since you already have **"redis-green-island"** database:
+### 1.1 Set Redis Environment Variable
+Since you have **"redis-green-island"** database:
 1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
-2. Navigate to **Storage** → **redis-green-island**
-3. Click **"Connect Project"**
-4. Select your `akjellrc-portfolio` project
+2. Navigate to your **akjellrc-portfolio** project
+3. Go to **Settings** → **Environment Variables**
+4. Add new environment variable:
+   - **Name**: `REDIS_URL`
+   - **Value**: `redis://default:sNCT21OQfeLTo6iK7cA8l5lvyoivy9gR@redis-12704.crce182.ap-south-1-1.ec2.redns.redis-cloud.com:12704`
+   - **Environments**: Production, Preview, Development
 
 ### 1.2 Verify Environment Variables
-Vercel will automatically add these environment variables:
-- `KV_REST_API_URL`
-- `KV_REST_API_TOKEN`  
-- `KV_REST_API_READ_ONLY_TOKEN`
+Your project should have:
+- `REDIS_URL` - Redis connection string
 
 ## 🔐 Data Isolation & Multi-Project Safety
 
@@ -30,7 +31,7 @@ Vercel will automatically add these environment variables:
 This project uses **namespaced keys** to ensure data isolation:
 
 ```
-Database: redis-green-island
+Database: redis-green-island (Redis)
 ├── akjellrc:speed_runs     ← Your RC speed runs
 ├── akjellrc:build_entries  ← Your RC build logs
 ├── other-project:data      ← Future projects (safe separation)
@@ -46,42 +47,22 @@ Database: redis-green-island
 ## 🌐 Step 2: Deploy to Vercel
 
 ### 2.1 Auto Deployment (Recommended)
-1. Push your latest changes to GitHub:
-   ```bash
-   git add .
-   git commit -m "Add Vercel KV storage integration"
-   git push origin main
-   ```
+Your changes are already pushed to GitHub. Vercel should automatically deploy.
 
-2. Vercel will automatically detect the changes and deploy
-
-### 2.2 Manual Deployment
-If auto-deployment isn't set up:
-
-1. Install Vercel CLI:
-   ```bash
-   npm i -g vercel
-   ```
-
-2. Login to Vercel:
-   ```bash
-   vercel login
-   ```
-
-3. Deploy:
-   ```bash
-   vercel --prod
-   ```
+### 2.2 Manual Trigger
+If auto-deployment doesn't start:
+1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
+2. Navigate to your **akjellrc-portfolio** project
+3. Go to **Deployments** tab
+4. Click **"Redeploy"** on the latest deployment
 
 ## 🔧 Step 3: Verify Environment Variables
 
-### 3.1 Check KV Variables
+### 3.1 Check Redis Variables
 1. Go to your project in Vercel Dashboard
 2. Navigate to **Settings** → **Environment Variables**
-3. Verify these exist:
-   - `KV_REST_API_URL`
-   - `KV_REST_API_TOKEN`
-   - `KV_REST_API_READ_ONLY_TOKEN`
+3. Verify this exists:
+   - `REDIS_URL` (should contain your Redis connection string)
 
 ### 3.2 Add Custom Variables (Optional)
 For enhanced security, you can add:
